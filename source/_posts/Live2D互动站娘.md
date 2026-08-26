@@ -1,8 +1,8 @@
 ---
-title: Vue3 + Live2D 站娘
+title: Live2D互动站娘
 date: 2026-05-05 22:32:30
-tags: Vue3 + Live2D 
-excerpt: Vue3 + Live2D 
+tags: Live2D互动站娘
+excerpt: Vue3 + pixiJs = Live2D
 categories:
     - 項目
 ---
@@ -34,6 +34,7 @@ categories:
 -----------------------------------------------
 
 # 🛠️ 技术栈的构成（以你的项目为例）
+
 一个完整、专业的 Live2D 宠物组件技术栈通常分为以下几个层次：
 
 1. 前端框架 (The Framework)
@@ -65,36 +66,50 @@ GSAP： 让宠物对话框弹出、位置移动更符合物理逻辑。
 
 Pinia： 如果你的宠物数据要在多个页面共享，它负责存储宠物的“记忆”。
 
-----------------------------------------------------
-没问题，这是一份为你量身定制的 “环境初始化清单”。环境搭建与依赖配置。
 
-🛠️ 第一步：初始化 Vue3 项目
-如果你还没有创建项目，先用 Vite 快速起步：
+# 依赖安装
+
 ```
-Bash
-# 创建项目
+npm install
+
+npm install pixi.js@7 // 注意版本 可能会出现 ref(0)的问题
+
+npm install pixi-live2d-display //live2D 解析插件
+
+npm install live2dcubismcore  //live 2D 核心插件
+
+```
+
+# 初始化 Vue3 项目
+
+如果你还没有创建项目，先用 Vite 快速起步：
+
+```
 輕量
-npm create vite@latest my-live2d-pet -- --template vue
+npm create vite@latest 项目名字 -- --template vue
+
 完整
 npm create vue@latest
 ```
 
 # 进入目录
 ```
-cd my-live2d-pet
+cd 项目
 ```
 
 # 安装基础依赖
+
 ```
 npm install
 ```
-📦 第二步：安装核心依赖
+
+# 安装核心依赖
 这是实现 Live2D 效果最关键的三件套：
 
 ```
-Bash
-# 1. 安装渲染引擎 PixiJS（建议使用 v7 版本，文档最全）
-npm install pixi.js@7
+安装渲染引擎 PixiJS（使用 xxx 版本）
+
+npm install pixi.js@7  //这个可能与pixi-live2d-display版本不兼容 需要查看具体文档
 ```
 
 ```
@@ -103,62 +118,62 @@ npm install pixi-live2d-display
 ```
 
 # 3. 安装官方核心运行时（Cubism Core）
-# 注意：由于版权原因，这个包通常需要手动引入，或者安装社区维护的版本
 
-```
-npm install live2dcubismcore
-```
+`注意：由于版权原因，这个包通常需要手动引入，或者安装社区维护的版本，npm里面没有cubism core核心`
 
-`
-Live2DCubismCore 是解析 .model3.json 的二進制黑盒
-`
+`npm install live2dcubismcore`
+
+`Live2DCubismCore 是解析 .model3.json 的二進制黑盒`
 
 
 <div style="color:pink">核心官網</div>
 
 `https://www.live2d.com/zh-CHS/sdk/download/web/`
 
-<div style="color:pink">Cubism Core for Web</div>
+<div style="color:pink">Cubism Core for Web<div style="color:red">切记不是Cubism SDK for Web</div></div>
 
-<div style="color:pink">不是Cubism SDK for Web</div>
 
 ```
-簡單來說，Cubism Core 是引擎的「心臟」（底層解析邏輯），而 Cubism SDK 是外層的「軀幹」（各種封裝好的 API 和工具類）。如果只加載了 SDK 而沒有 Core，或者 Core 的版本與模型不匹配，就會出現你遇到的 read(0) 報錯，因為 SDK 根本無法解析模型數據。
+Cubism Core 是引擎的「心臟」（底層解析邏輯），而 Cubism SDK 是外層的「軀幹」（各種封裝好的 API 和工具類）。如果只加載了 SDK 而沒有 Core，或者 Core 的版本與模型不匹配，
+
+可能会遇到 read(0) 報錯，因為 SDK 根本無法解析模型數據。
 
 ```
-
-
 
 <div style="color:pink">live2dcubismcore.min.js</div>
 
 pixi-live2d-display	你目前選用的第三方適配庫，它需要 Cubism Core 才能工作。(npm 包)
 
 
-🌐 在 index.html 引入核心库
-在 src/main.js 加载之前，我们需要确保 Live2D 的底层核心库已经加载。在 index.html 的 <head> 中添加：
+# 在 index.html 引入核心库
+
+在 src/main.js 加载之前，我们需要确保 Live2D 的底层核心库已经加载。在 index.html 的 `<head>`中添加：
 
 ```
-
-HTML
 <!-- 引入 Live2D Cubism SDK 核心文件 -->
+
+<!--在线版本 -->
 <script src="https://cubism.live2d.com/sdk-web/bin/cubismcore/live2dcubismcore.min.js"></script>
+
+<!--离线版本-->
+<script src="/live2dcubismcore.min.js"></script>
+
 ```
 
-
-
-# 反編譯 拿模型
+<details>
+<summary>反編譯 拿模型</summary>
 
 .lpk 加密格式反编译，提取出标准的 .moc3 和 .json 资源。
 
-```
-https://github.com/ihopenot/LpkUnpacker
-```
 
-📂 第三步：静态资源配置（关键环节）
-Live2D 模型包含很多 .json、.moc3 和图片文件，这些必须放在 public 目录下，否则 Vite 会找不到它们。
-```
+`https://github.com/ihopenot/LpkUnpacker` 反编译官网
+
+📂 静态资源配置（关键环节）
+
+Live2D 模型包含很多 .json、.moc3 和图片文件，这些必须放在 public 目录下，否则 Vite 会找不到它们，vite 会编译public  以外的文件
+
 建议的目录结构：（你解包壓縮的文件在哪裡就在哪裡）json文件不要動
-Plaintext
+```
 public/
 └── live2d/
 |    └── xxx/             
@@ -168,25 +183,35 @@ public/
 |      
 ├── src/
 │   └── components/
-│       └── Live2dPet.vue      # 你的宠物组件
+│       └── Live2d.vue      # 你的live2d组件
 └── index.html
 ```
+</details>
 
-🏁 第五步：验证安装
+
+
+
+# 验证安装
 为了确认你的环境已经配好，可以在 App.vue 中尝试打印一下对象：
 
-JavaScript
+```
 import * as PIXI from 'pixi.js';
-import { Live2DModel } from 'pixi-live2d-display';
+///cubism4 是什么玩意
+import { Live2DModel } from 'pixi-live2d-display/cubism4'; 
 
 console.log('Pixi版本:', PIXI.VERSION);
 console.log('Live2D模型类:', Live2DModel);
+```
+
+# 怎么渲染到页面上我也不知道 明天写吧
 
 
 
-# 技術棧介紹
+<details>
+<summary>技術棧介紹</summary>
 
-## PixiJS 是一款效能極強的開源 2D 渲染引擎。
+
+# PixiJS 是一款效能極強的開源 2D 渲染引擎。
 
 如果你想在網頁上製作流暢的動畫、遊戲或是處理大量的圖像，PixiJS 幾乎是業界的首選。它最大的特色在於「快」，利用 WebGL（以及現代的 WebGPU）來達成硬體加速，讓你在瀏覽器中同時渲染成千上萬個物件還能保持 60 FPS。
 
@@ -252,7 +277,6 @@ app.ticker.add((delta) => {
 });
 
 ```
------------------------------
 
 1. GSAP 是什麼？
 GSAP (GreenSock Animation Platform) 是一個專門用來處理屬性動畫的 JavaScript 庫。
@@ -283,7 +307,7 @@ UI 氣泡彈出： 當叢雨說話時，對話氣泡從縮小狀態（scale: 0�
 平滑位移： 點擊按鈕，讓叢雨從畫面左邊緩緩滑動到右邊，而不是瞬間移動。
 
 呼吸感： 雖然 Live2D 有內建呼吸，但如果你想讓整個模型有種輕微的上下浮動感，GSAP 一行代碼就能搞定。
-## 插件
+# 插件
 
 第一階段：誰負責什麼？（大藍圖）
 在你的網頁裡，這三者是合作關係：
@@ -296,4 +320,9 @@ pixi-live2d-display (翻譯官)：這是最關鍵的插件。因為畫家（Pixi
 
 GSAP：提供絲滑的轉場與 UI 反饋（視覺潤飾）。
 
----------------------------------------
+
+
+</details>
+
+
+
