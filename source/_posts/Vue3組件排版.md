@@ -2,7 +2,6 @@
 title: vue組件排版
 date: 2026-04-25 18:54:55
 tags:
-sticky: 9
 excerpt: 組件基本排版
 categories:
   - Vue框架
