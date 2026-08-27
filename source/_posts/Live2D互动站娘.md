@@ -31,7 +31,6 @@ categories:
 
 动画库： GSAP (用于处理气泡弹出、UI 平滑位移)
 
------------------------------------------------
 
 # 🛠️ 技术栈的构成（以你的项目为例）
 
@@ -67,12 +66,14 @@ GSAP： 让宠物对话框弹出、位置移动更符合物理逻辑。
 Pinia： 如果你的宠物数据要在多个页面共享，它负责存储宠物的“记忆”。
 
 
+可能会出现 索引0的问题 很复杂 明天慢慢来吧
+
 # 依赖安装
 
 ```
 npm install
 
-npm install pixi.js@7 // 注意版本 可能会出现 ref(0)的问题
+npm install pixi.js@7(6.5.10) // 注意版本 
 
 npm install pixi-live2d-display //live2D 解析插件
 
@@ -126,6 +127,8 @@ npm install pixi-live2d-display
 `Live2DCubismCore 是解析 .model3.json 的二進制黑盒`
 
 
+
+
 <div style="color:pink">核心官網</div>
 
 `https://www.live2d.com/zh-CHS/sdk/download/web/`
@@ -165,8 +168,6 @@ pixi-live2d-display	你目前選用的第三方適配庫，它需要 Cubism Core
 
 .lpk 加密格式反编译，提取出标准的 .moc3 和 .json 资源。
 
-
-`https://github.com/ihopenot/LpkUnpacker` 反编译官网
 
 📂 静态资源配置（关键环节）
 
