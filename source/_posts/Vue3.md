@@ -43,3 +43,5 @@ watch（侦听器）：
 
 用途：当变量改变时，去执行有副作用的操作（如重新发送 API 接口请求、播放音效）。
 ```
+
+Vue 自定义指令，就是导出一个对象，对象上挂载 `mounted / updated / unmounted` 这些函数，Vue内部会在对应生命周期自动调用这些函数，传入 `el、binding、vnode、prevVNode` 参数。
