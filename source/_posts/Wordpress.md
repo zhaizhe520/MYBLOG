@@ -1,11 +1,12 @@
 ---
-title: 第一次配置WordPress
+title: 配置WordPress
 date: 2026-04-09 17:03:38
 tags:
 categories:
   - WordPress
 ---
 # wordpress
+
 今天用學用wordpress
 本地开发 WordPress 最简架构（后端标配）
 
@@ -110,9 +111,11 @@ php-cgi.exe -b 127.0.0.1:9000
 后续可以做成开机自启服务，先本地测试用这个方式
 
 # Nginx 完整配置
+
 Nginx 完整配置文件（直接替换）
 1. 找到 Nginx 配置文件
 路径：D:\PhpStudy\nginx-1.28.3\conf\nginx.conf（你的 Nginx 解压目录）
+
 2. 完全替换成下面的配置（注意修改 WordPress 路径）
 nginx
 #user  nobody;
@@ -173,6 +176,7 @@ http {
         }
     }
 }
+
 3. 关键修改说明
 只需要改 root D:\PhpStudy\wordpress; 这一行，换成你自己的 WordPress 文件夹路径
 其他配置完全不用改，直接保存即可
@@ -210,7 +214,8 @@ start nginx.exe
 点击「安装 WordPress」→ 完成后点击「登录」，进入后台
 
 
-# 
+# 第二次配置wordpress
+
 行第一次卡主了，要不再來一次？
 
 # 一.安裝準備
@@ -307,3 +312,4 @@ nginx.exe
 
 打開http://localhost/wp-admin
 ![](/img/bg/OVER.png)
+
