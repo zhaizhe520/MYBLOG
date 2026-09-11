@@ -17,6 +17,7 @@ categories:
 把动态请求（.php 文件）转发给 PHP 处理
 做负载均衡、缓存、安全防护等
 对你来说：就是 WordPress 网站的「入口」，所有访问都要经过它
+
 2. MySQL 8.0：网站的「仓库 + 账本」
 本质：关系型数据库
 作用：
@@ -24,6 +25,7 @@ categories:
 用表结构存数据，PHP 来读写
 保证数据的持久化、安全、高效查询
 对你来说：就是 WordPress 的「数据库」，存你写的所有内容和配置
+
 3. PHP 8.x：网站的「大脑 + 处理器」
 本质：服务器端脚本语言
 作用：
@@ -56,20 +58,24 @@ bash
 mysql -u root -p
 输入密码，进入命令行。
 
+
 # 执行建库 SQL
 1. 执行建库 SQL（在 mysql> 提示符后输入）
 sql
 CREATE DATABASE wp_local CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 回车执行，看到 Query OK, 1 row affected 就代表创建成功。
 这个 wp_local 就是后续安装 WordPress 要用的数据库。
+
 2. 验证数据库（可选）
 sql
 SHOW DATABASES;
 执行后会列出所有数据库，能看到 wp_local 就说明没问题。
+
 3. 退出 MySQL
 sql
 exit;
 回车即可回到 CMD 命令行，接下来就可以配置 Nginx + PHP，启动服务安装 WordPress 了。
+
 
 # PHP 环境配置（关键步骤）
 1. 进入 PHP 解压目录（比如 D:\env\php-8.5.5-nts）
@@ -102,6 +108,7 @@ cd D:\env\php-8.5.5-nts
 php-cgi.exe -b 127.0.0.1:9000
 这个窗口不要关，关了 PHP 服务就停了
 后续可以做成开机自启服务，先本地测试用这个方式
+
 # Nginx 完整配置
 Nginx 完整配置文件（直接替换）
 1. 找到 Nginx 配置文件
@@ -202,5 +209,101 @@ start nginx.exe
 勾选「建议搜索引擎不索引本站点」（本地环境用）
 点击「安装 WordPress」→ 完成后点击「登录」，进入后台
 
-#
+
+# 
 行第一次卡主了，要不再來一次？
+
+# 一.安裝準備
+
+1. Nginx（Web 服务器）
+去官网下载：http://nginx.org/en/download.html
+下载：nginx/Windows‑xxx.zip解压到：XXXXXX
+2. PHP（运行 WordPress 用）
+下载：https://windows.php.net/download/
+选：Zip → x64 → Non Thread Safe解压到：XXXXXXXX
+3. MySQL（数据库）
+下载：https://dev.mysql.com/downloads/mysql/
+选：Windows (x86, 64-bit), ZIP Archive解压到：XXXX
+4.wordpress下載
+https://cn.wordpress.org/latest-zh_CN.zip
+
+# 二.開始配置
+## MySQL
+配置环节（重点）：
+端口保持默认 3306，不要修改。
+身份验证方式选择 「Use Legacy Authentication Method」（兼容 WordPress，避免连接报错）。
+设置 root 账户密码，务必记住，后续安装 WordPress 必须用。
+勾选「Start the MySQL Server at System Startup」，设为开机自启，不用每次手动启动。
+验证安装：
+安装完成后，打开 CMD 输入：
+bash
+运行
+mysql -u root -p
+输入你设置的密码，能进入 MySQL 命令行，就说明安装成功。
+创建 WordPress 数据库：
+进入 MySQL 后执行：
+sql
+CREATE DATABASE wp_local CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+这个 wp_local 就是后续安装 WordPress 要用的数据库。
+![](/img/bg/MySQL.png)
+
+## PHP配置
+1. 进入 PHP 目录
+2. 复制配置文件
+把 php.ini-development 复制一份，重命名为 php.ini，用编辑器打开，修改以下配置：
+ini
+设置扩展目录（改成你自己的 PHP 路径）
+extension_dir = "D:\env\php-8.5.5-nts\ext"XXXXX extension_dir ="\ext"
+开启 WordPress 必需的扩展（去掉前面的分号 `;`）
+extension=mysqli 
+extension=pdo_mysql
+extension=curl  网络请求
+extension=gd    图片处理
+extension=mbstring   多字节字符串（中文支持）
+extension=fileinfo  文件信息处理
+curl：网络请求
+fileinfo：文件信息处理
+gd：图片处理
+mbstring：多字节字符串（中文支持）
+mysqli / pdo_mysql：MySQL 数据库连接
+![](/img/bg/PHP.png)
+
+## Nginx配置
+***注意：要把wordpress解壓到Nginx的html文件夾裡面***
+ 修改 Nginx 配置
+打开：****\nginx\conf\nginx.conf
+找到 server 段，全部替换成下面这段：
+nginx
+server {
+    listen       80;
+    server_name  localhost;
+
+    root   html/wordpress;
+    index  index.php index.html;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+}
+保存。
+![](/img/bg/NIGHT.png)
+
+
+## 三.終端打開
+cd *******\php
+php-cgi.exe -b 127.0.0.1:9000
+不能刪除
+
+cd*******\nginx
+nginx.exe
+不能刪除
+
+打開http://localhost/wp-admin
+![](/img/bg/OVER.png)

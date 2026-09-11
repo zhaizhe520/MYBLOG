@@ -1,7 +1,11 @@
 ---
-title: Vue3
+title: Vue3框架深耕精通
 date: 2026-09-03 15:07:38
-tags:
+tags: Vue框架深耕精通
+excerpt: Vue框架深耕精通
+sticky: 80
+categories: 
+    - Vue框架
 ---
 <details>
 <summay>响应式API</summay>

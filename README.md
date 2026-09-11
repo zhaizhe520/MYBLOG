@@ -43,3 +43,6 @@ git push
 
 >你现在选C，最简单，代价就是主题自己手动维护。
 >⚠️提醒：你的 `_config.fluid.yml` 是放在根目录，**这个文件一定要提交git！**，你的主题配置全部保存在这里，换电脑依然保留你的配置。
+
+
+`https://github.com/fluid-dev/hexo-theme-fluid`

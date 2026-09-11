@@ -141,8 +141,6 @@ git config --global --unset http.sslVerify
 
 
 
-
-
 git rm --cached server.js	只取消跟踪，保留文件
 git rm server.js	取消跟踪 且删除文件
 
