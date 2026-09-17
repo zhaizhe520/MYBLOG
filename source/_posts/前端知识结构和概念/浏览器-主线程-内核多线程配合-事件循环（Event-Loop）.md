@@ -1,5 +1,5 @@
 ---
-title: 浏览器(主线程+内核多线程配合 + 事件循环（Event Loop）)
+title: 浏览器知识体系
 date: 2026-06-21 10:11:41
 tags: 浏览器
 excerpt: 浏览器
