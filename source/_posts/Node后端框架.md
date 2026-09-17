@@ -6,6 +6,34 @@ excerpt: 后端框架
 categories:
     - 后端
 ---
+| 语言生态 | 核心代表 | 生态风格 | 最佳场景 |
+|---|---|---|---|
+| Node.js | Express, Fastify, NestJS, Hono | 迭代快、碎片化严重、轻量非阻塞、全栈/边缘计算优势明显 | 全栈开发、BFF 层、高并发 I/O、实时应用 |
+| Java | Spring Boot, Quarkus, Netty | 高度标准化、企业级规范、强类型、长生命周期 | 金融级后台、复杂企业级微服务系统、大数据处理 |
+| Python | Django, Flask, FastAPI | 快速交付、语法优雅、人工智能/数据科学无缝集成 | AI/数据分析后端 API、MVP 快速验证、中小型 Web 系统 |
+| Go(Golang) | Gin, Echo, Fiber, Beego | 编译型、极简高效、低内存占用、原生高并发、部署简单 | 高并发网关、微服务、容器云原生、中间件、高性能接口服务 |
+| Rust | Axum, Rocket, Actix-web | 极致性能、内存安全、无GC、高稳定性、超低延迟 | 底层基础设施、高性能核心服务、区块链、高可靠低延迟系统 |
+
+
+
+```text
+┌──────────────────────────────────────────┐
+                        │      JavaScript / TypeScript 后端生态      │
+                        └────────────────────┬─────────────────────┘
+                                             │
+      ┌──────────────────────┬───────────────┴───────────────┬──────────────────────┐
+      ▼                      ▼                               ▼                      ▼
+【1. 底层 / 极简路由层】    【2. 企业级 / 架构驱动】        【3. 全栈 / SSR 服务端】    【4. 跨运行环境 / 边缘】
+ (微服务/高性能 API)       (控制反转/依赖注入/规范)        (前端驱动/前后端同构)       (Cloudflare/Deno/Bun)
+ ──────────────────        ────────────────────────        ─────────────────────       ──────────────────────
+  • Express                 • NestJS (默认Express/Fastify)  • Next.js (React)           • Hono
+  • Fastify                 • Midway.js (阿里开源)          • Nuxt.js (Vue)             • Elysia.js (Bun)
+  • Koa                     • Sails.js                      • SvelteKit                 • Feathers.js
+  • h3 (UnJS)               • LoopBack                      • Remix (React Router)
+  • hapi
+```
+
+
 <details>
 <summary>Express</summary>
 
@@ -160,6 +188,11 @@ app.get('/api/dashboard', authenticateToken, (req, res) => {
 <summary>Fastify</summary>
 官方网址:[https://fastify.dev/]
 
+多了个sheame校验 重写了express的路由机制
+
+
+
+
 
 
 </details>
@@ -180,6 +213,6 @@ app.get('/api/dashboard', authenticateToken, (req, res) => {
 </details>
 
 <details>
-<summary>kora</summary>
+<summary>koa</summary>
 
 </details>
