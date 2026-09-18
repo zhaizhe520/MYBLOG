@@ -8,114 +8,121 @@ categories:
     - TypeScript
 ---
 
-TS = JS + 类型安全
+# TypeScript 开发
+
+需要熟练掌握类型定义、泛型、接口（Interfaces）以及 Vue 全家桶中的 TS 类型推导与扩展。
 
 
-# 基础类型声明（给变量加保镖）
-```
-// 1. 基础类型
-let age: number = 25;
-let name: string = "Miku";
-let isIdol: boolean = true;
+# TypeScript类比JS补充的功能：
 
-// 2. 数组类型（两种写法的效果完全一样）
-let scores: number[] = [90, 85, 95]; 
-let skills: Array<string> = ["Vue", "Node", "TS"];
+类型声明与检查（如 name: string）。
 
-// 3. 任意类型 (any) —— 相当于关掉 TS 的检查，退回原生 JS 
-// 工业界一般不建议用，但在刚从 JS 转过来的过渡期可以用它救急
-let anything: any = "我爱变啥变啥";
-anything = 123;
-```
+编译期访问修饰符（public / protected / private）。
 
-# 函数的类型约束（管好输入和输出）
-```
-// 定义一个名为 User 的接口
-interface User {
-    id: number;
-    username: string;
-    email: string;
-    age?: number; // 💡 注意这里的问号：表示这个属性是可选的（可有可无）
-}
+构造函数参数简写（如 constructor(public name: string)）。
 
-// 实际使用：这个对象必须严格遵守 User 的结构
-const myUser: User = {
-    id: 1001,
-    username: "田中",
-    email: "tanaka@example.com"
-    // age 没写也不会报错，因为它是可选的
-};
-
-// ❌ 报错示例：
-const badUser: User = {
-    id: 1002,
-    username: "佐藤"
-    // ❌ 报错：漏掉了必填的 email 属性！
-};
-```
-# 接口（Interface）—— 全栈开发的绝对灵魂 🌟
-```
-// 定义一个名为 User 的接口
-interface User {
-    id: number;
-    username: string;
-    email: string;
-    age?: number; // 💡 注意这里的问号：表示这个属性是可选的（可有可无）
-}
-
-// 实际使用：这个对象必须严格遵守 User 的结构
-const myUser: User = {
-    id: 1001,
-    username: "田中",
-    email: "tanaka@example.com"
-    // age 没写也不会报错，因为它是可选的
-};
-
-// ❌ 报错示例：
-const badUser: User = {
-    id: 1002,
-    username: "佐藤"
-    // ❌ 报错：漏掉了必填的 email 属性！
-};
-```
+抽象类与接口实现（如 implements Interface）。
 
 <details>
-<summary>TS 指令类型声明</summary>
-
-# ObjectDirective（对象指令类型）
-
-是什么：它定义了一个自定义指令对象应该长什么样。
-
-作用：告诉 TS：“我定义的这个变量是一个 Vue 自定义指令，里面包含 mounted、unmounted、updated 等钩子函数”。
-
-好处：如果你把钩子函数名字拼错了（比如写成了 onMounted 或 mount），TS 会立刻弹红提示你写错了。
-
-# DirectiveBinding（指令绑定参数类型）
-
-是什么：它定义了在生命周期钩子（如 mounted(el, binding)）里，第二个参数 binding 内部包含哪些属性。
-
-作用：告诉 TS：binding 里面有 value（传进来的值）、oldValue、arg（参数）、modifiers（修饰符）等属性。
-
-好处：当你敲出 binding. 时，编辑器（如 VS Code）会自动弹出 value、oldValue 的自动补全和提示，不需要再去死记硬背。
+<summary>类和接口</summary>
 
 
-| 参数 | 类型 | 说明 |
-| ---- | ---- | ---- |
-| el | HTMLElement (或自定义扩展) | 真实的原生 DOM 节点<br>绑定原生事件（addEventListener）、修改 style 样式。 |
-| binding | DirectiveBinding&lt;T&gt; | 指令包含的属性对象<br>获取 binding.value（传进来的值）、binding.arg（如 v‑pet:foo 中的 foo）。 |
-| vnode | VNode | Vue 的虚拟 DOM 节点<br>获取当前节点对应的 Vue 组件实例（vnode.component）、上下文信息等高级操作。 |
-| prevVNode | VNode \| null | 旧的虚拟 DOM 节点<br>主要在 updated 钩子中做新旧 VNode 比较（Diffing）。 |
-
-# 类型补丁
-
-
-|  | 类型来源 | 示例 | 作用 |
-| ---- | ---- | ---- | ---- |
-| 1 | TS / JS 原生内置类型 | HTMLElement / string / number | 描述标准 DOM 或原生数据类型 |
-| 2 | 框架提供的类型 | ObjectDirective / DirectiveBinding / VNode | 描述 Vue 内部的特定结构 |
-| 3 | 自己用 interface 定义的类型 | PetNovelElement | 根据业务需求灵活补全或自定义数据结构 |
 
 
 </details>
 
-状态共享（单例与工厂模式）
+
+
+<details>
+<summary>修饰符</summary>
+
+# public  修饰符
+
+
+# protected 修饰符
+
+```ts
+
+class AbstractController {
+  // 限制构造函数仅允许子类调用
+  protected constructor(protected moduleName: string) {}
+}
+
+// const ctrl = new AbstractController("User"); // ❌ 报错：构造函数受保护，无法直接实例化 不能new
+
+class UserController extends AbstractController {
+  constructor() {
+    super("UserModule"); // ✅ 子类可以通过 super() 正常调用
+  }
+}
+
+// JS 原生 #field 语法：在运行时强制私有（由 JavaScript 引擎提供保障），任何外部手段都无法突破限制 object.freeze()
+
+class user {
+  #name: string 
+  constructor(){
+    this.#name = "tom"
+  }
+}
+
+const a = new user()
+
+// a.name = xxx no
+```
+
+
+# private 修饰符
+
+
+#  readonly 修饰符
+
+```ts
+//readonly  修饰的属性只能在声明时或构造函数中赋值，之后不能再修改
+
+class user{
+  readonly into={name:"tom"}
+}
+
+const a = new user()
+
+a.into={} //no
+
+a.into.name = "jom" //yes
+
+//静态类型校验 编译成js之后没有readonly  
+
+
+
+```
+
+# 新旧Class写法
+
+```ts
+//在构造函数参数前加修饰符（如 public readonly），TS 会自动完成"声明属性 + 赋值"两步，等价于省略赋值的过程 在construct()+ 修饰符
+
+
+// 写法 A（简写） 构造函数+语法糖 没有修饰符不会生成具体实例
+class A {
+  constructor(public readonly id: number) {}
+}
+
+// 写法 B（等价展开） 
+class B {
+  public readonly id: number;
+  constructor(id: number) {
+    this.id = id;
+  }
+}
+```
+</details>
+
+<details>
+
+
+<summary>抽象类与接口实现</summary>
+
+
+
+
+</details>
+
