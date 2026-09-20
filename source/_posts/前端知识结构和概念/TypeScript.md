@@ -12,8 +12,7 @@ categories:
 
 需要熟练掌握类型定义、泛型、接口（Interfaces）以及 Vue 全家桶中的 TS 类型推导与扩展。
 
-
-# TypeScript类比JS补充的功能：
+# TypeScript类比JS补充的功能
 
 类型声明与检查（如 name: string）。
 
@@ -26,18 +25,30 @@ categories:
 <details>
 <summary>类和接口</summary>
 
+# class
 
+
+# interface 
+
+最小契约 全传完
+
+
+interface a{
+  name : string 
+}
+
+class A{
+  construct( public ){}
+
+}
 
 
 </details>
-
-
 
 <details>
 <summary>修饰符</summary>
 
 # public  修饰符
-
 
 # protected 修饰符
 
@@ -70,11 +81,9 @@ const a = new user()
 // a.name = xxx no
 ```
 
-
 # private 修饰符
 
-
-#  readonly 修饰符
+# readonly 修饰符
 
 ```ts
 //readonly  修饰的属性只能在声明时或构造函数中赋值，之后不能再修改
@@ -90,9 +99,6 @@ a.into={} //no
 a.into.name = "jom" //yes
 
 //静态类型校验 编译成js之后没有readonly  
-
-
-
 ```
 
 # 新旧Class写法
@@ -114,15 +120,65 @@ class B {
   }
 }
 ```
+
 </details>
 
 <details>
-
-
 <summary>抽象类与接口实现</summary>
 
+protected construct() {}
+
+```ts
+class A{
+  protected construct(public a:string) {}
+  //不能在类A 里面new 实例
+  say(){
+    console.log(a)
+  }
+}
+
+//const B = new A (); X 外部不能new A
+
+class B extends A{
+  construct(){
+    super(999)
+  }
+}
 
 
+const b = new B ()
+
+b.say()
+```
+
+```ts
+//基础抽象模版
+abstract class user{
+  construct (public a:string){}
+  abstract say(){};
+}
+```
 
 </details>
 
+<details>
+<summary>T 泛型约束</summary>
+
+T : string | number
+
+T extends interface
+
+T : 对象结构 {name : "TOM"}
+
+```ts
+
+function a <T: string| number>(v:T ){
+
+  console.log(v)
+}
+
+a(1)
+
+```
+
+</details>
