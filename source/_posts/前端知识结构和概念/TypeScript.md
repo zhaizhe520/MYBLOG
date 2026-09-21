@@ -164,6 +164,8 @@ abstract class user{
 <details>
 <summary>T 泛型约束</summary>
 
+`<k,v>` 泛型键值对
+
 T : string | number
 
 T extends interface
