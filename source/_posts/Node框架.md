@@ -1,8 +1,8 @@
 ---
-title: 后端框架
+title: Node框架
 date: 2026-09-12 10:40:19
-tags: 后端框架
-excerpt: 后端框架
+tags: Node框架
+excerpt: Node框架
 categories:
     - 后端
 ---
@@ -200,7 +200,57 @@ app.get('/api/dashboard', authenticateToken, (req, res) => {
 <details>
 <summary>Nuxt.js</summary>
 
+Nuxt 是`同构框架`，一份代码，会打包成两套产物，分别跑在两个完全不同环境：服务端（Node）、客户端（浏览器）
+
+
+一份代码2个环境跑 一份nodejs 一份浏览器
+
+import.meta.client 来判断是哪端 防止出现localstorage宿主环境乱用的问题
+
+#  水合（Hydration，注水）
+
+静态HTML发送给浏览器（客户端）加载JS 这一过程是注水
+
+# 服务端没有DOM 
+
+没 2生命周钩子函数  onMounted() onUnmounted() 
+
+# 框架基本结构
+Nuxt 3 采用的是服务端渲染（SSR）和基于文件系统的路由机制
+
+
+|目录/文件|说明|
+| ---- | ---- |
+|pages/|存放页面，自动生成路由。|
+|components/|存放公共组件，在任何 .vue 文件中直接写组件名就能用，无需手动 import。|
+|layouts/|存放页面通用布局（如包含统一的导航栏和页脚）。|
+|public/|存放无需打包的静态资源（如图片、图标、robots.txt）。可以直接通过 /filename 访问。|
+|server/|编写后端 API 接口。例如在 server/api/hello.ts 中写接口，前端可以直接用 useFetch('/api/hello') 调用。|
+|nuxt.config.ts|项目全局配置文件（用于引入全局 CSS、配置插件、设置 SEO 标题等）。|
+
+
+
+# 基于文件系统的路由（File-based Routing）
+
+`<NuxtLink> 和 <NuxtPage>，是因为 Nuxt 在背后为你做了一套“自动化映射”与“自动导入（Auto-imports）”机制。`
+
+<details>
+<summary>Nuxt 专属的 API<summary>
+
+# useState
+
+SSR（服务端渲染）水和/防共享/契合服务端渲染(SSR)
+
+`const key = useState('key', () => value)` //全局状态管理 轻量版pinia
+
+<details>
+
+# 强大的 Node.js 后端服务引擎（Nitro）
+
+
 </details>
+
+
 
 <details>
 <summary>Next.js</summary>

@@ -264,4 +264,46 @@ user = null;
 
 </details>
 
-Vue 自定义指令，就是导出一个对象，对象上挂载`mounted / updated / unmounted` 这些函数，Vue内部会在对应生命周期自动调用这些函数，传入 `el、binding、vnode、prevVNode`参数。`
+# Vue 自定义指令，
+
+导出一个对象，对象上挂载`mounted / updated / unmounted` 这些函数，Vue内部会在对应生命周期自动调用这些函数，传入 `el、binding、vnode、prevVNode`参数。`
+
+
+<details>
+<summary>computed 完整知识架构、底层模型、哲学</summary>
+
+惰性求值
+
+computed 是响应式系统里的「自动缓存的纯派生公式」
+
+**computed 计算属性**：**派生状态（derived state）**。
+
+它**只读、自动缓存、基于响应式依赖做纯计算；不会修改任何外部变量，不改变外部世界**。 它**没有副作用**。
+
+区分「源状态（source state）」和「派生状态 (derived state)」
+
+源状态：真相源头，ref/reactive 保存。
+
+派生状态：不需要独立存储，完全可以由源状态推导得出。不要单独存一份！ 消除冗余状态
+
+vue2 {a+b} --->每次都会触发从渲染
+
+能推导出来的数据，就不要单独保存。让 computed 自动推导，保证永远和源状态一致。
+
+|概念|computed|watch|
+| ---- | ---- | ---- |
+|定位|派生状态，求值、产生值|依赖变化，执行动作，处理副作用|
+|范式|声明式|命令式|
+|执行时机|惰性，读取才执行|依赖变更，主动触发回调|
+|返回|返回一个响应式包装的值|无返回，一般用来做 side effect|
+|能不能放副作用|getter 禁止；setter 可以（慎用）|专门用来承载副作用|
+|哲学|根据源状态自动算出新状态，消除冗余状态|状态变化之后，协调外部世界|
+
+</details>
+
+
+<details>
+<summary>处理副作用的载体</summary>
+
+
+</details>
