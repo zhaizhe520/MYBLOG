@@ -553,3 +553,9 @@ nc -zv 127.0.0.1 3000
 - `find / -name "*.log" -delete`
 
 执行删除、格式化、防火墙清空、批量替换前，先备份，先 `pwd`，先 `ls` 确认路径。
+
+
+sudo poweroff 
+
+pesswored
+

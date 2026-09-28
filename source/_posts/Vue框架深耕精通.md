@@ -7,6 +7,7 @@ sticky: 80
 categories: 
     - Vue框架
 ---
+
 官方文档: [https://cn.vuejs.org/]
 
 基于函数范式底层思想哲学  ``
@@ -24,17 +25,12 @@ WeakMap (targetMap)
 
 `依赖track()收集   触发更新trigger()`;
 
-
 <details>
 <summary>JS与Vue框架碰撞产生的不良</summary>
 
 JS源生语法与vue框架API 产生的冲突
 
-
-
 </details>
-
-
 
 <details>
 <summary>MVVM:Model‑View‑ViewModel思想</summary>
@@ -118,7 +114,9 @@ data.age = 30 // ✅触发set，打印日志
 
 **Vue3：`Proxy + Reflect`**
 直接代理**整个对象**，拦截对象所有读写、增删操作。
+
 懒代理：只有访问嵌套对象才做响应式，不用初始化递归全部遍历，性能更好。
+
 内部模型：`targetMap` 存储对象 → 属性 → effect 映射。
 
 ```js
@@ -180,6 +178,8 @@ WeakMap (targetMap)
                 └── value: Set (dep)
                      └── 包含该属性的所有 side effect 函数 (ReactiveEffect)
 ```
+
+/*试着写一track依赖搜集与trigger分发订阅
 
 ```ts
 // 1. 创建全局顶层 WeakMap 容器（targetMap）
@@ -260,14 +260,11 @@ user = null;
 
 </details>
 
-
-
 </details>
 
-# Vue 自定义指令，
+# Vue 自定义指令
 
 导出一个对象，对象上挂载`mounted / updated / unmounted` 这些函数，Vue内部会在对应生命周期自动调用这些函数，传入 `el、binding、vnode、prevVNode`参数。`
-
 
 <details>
 <summary>computed 完整知识架构、底层模型、哲学</summary>
@@ -291,7 +288,7 @@ vue2 {a+b} --->每次都会触发从渲染
 能推导出来的数据，就不要单独保存。让 computed 自动推导，保证永远和源状态一致。
 
 |概念|computed|watch|
-| ---- | ---- | ---- |
+|----|----|----|
 |定位|派生状态，求值、产生值|依赖变化，执行动作，处理副作用|
 |范式|声明式|命令式|
 |执行时机|惰性，读取才执行|依赖变更，主动触发回调|
@@ -301,9 +298,27 @@ vue2 {a+b} --->每次都会触发从渲染
 
 </details>
 
-
 <details>
 <summary>处理副作用的载体</summary>
+set()
+
+</details>
+
+<details>
+<summary>template标签</summary>
+
+自己写的 `词法分析`
+
+编译时优化 + 最小化 DOM 操作 + 渲染引擎原生机制
+
+</details>
+
+
+<details>
+<summary>开屏快</summary>
+
+编译时优化 + 最小化 DOM 操作 + 渲染引擎原生机制
+
 
 
 </details>
