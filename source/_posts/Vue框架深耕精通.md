@@ -260,6 +260,14 @@ user = null;
 
 </details>
 
+activeeffet() 全局变量
+
+3层表
+
+get() ---->track()
+
+set() ----->trigger()
+
 </details>
 
 # Vue 自定义指令
@@ -307,9 +315,17 @@ set()
 <details>
 <summary>template标签</summary>
 
-自己写的 `词法分析`
+自己写的 `词法分析` 
 
 编译时优化 + 最小化 DOM 操作 + 渲染引擎原生机制
+
+语法树 :AST
+
+render()函数
+
+vnode js嵌套对象
+
+patch 阶段 操作源生dom
 
 </details>
 
