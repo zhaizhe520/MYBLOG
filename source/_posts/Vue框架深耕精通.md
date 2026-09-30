@@ -8,6 +8,16 @@ categories:
     - Vue框架
 ---
 
+<details>
+<summary>API</summary>
+
+
+
+
+</details>
+
+
+
 官方文档: [https://cn.vuejs.org/]
 
 基于函数范式底层思想哲学  ``
@@ -164,7 +174,6 @@ function ref(value) {
     }
   }
 }
-
 ```
 
 <details>
@@ -180,6 +189,8 @@ WeakMap (targetMap)
 ```
 
 /*试着写一track依赖搜集与trigger分发订阅
+
+//开辟一条新的弱引用内存 能被GC回收
 
 ```ts
 // 1. 创建全局顶层 WeakMap 容器（targetMap）
@@ -317,6 +328,8 @@ set()
 
 自己写的 `词法分析` 
 
+template ----> ast ---->vnode---->diff ----->dom ---->dom树----->cssom----->渲染树
+
 编译时优化 + 最小化 DOM 操作 + 渲染引擎原生机制
 
 语法树 :AST
@@ -336,5 +349,10 @@ patch 阶段 操作源生dom
 编译时优化 + 最小化 DOM 操作 + 渲染引擎原生机制
 
 
+</details>
+
+
+<details>
+<summary>diff算法</summary>
 
 </details>
