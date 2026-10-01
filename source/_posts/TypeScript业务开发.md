@@ -247,3 +247,5 @@ null 空的主动赋值
 undefined 必须返回 undefined
 
 # 静态编译器 .tsc
+
+ts ----> ast ---->

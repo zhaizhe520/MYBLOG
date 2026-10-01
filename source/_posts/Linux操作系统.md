@@ -559,3 +559,10 @@ sudo poweroff
 
 pesswored
 
+pwd
+
+ls 
+
+cd
+
+rm -rf / www

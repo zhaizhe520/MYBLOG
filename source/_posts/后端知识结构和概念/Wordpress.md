@@ -49,6 +49,7 @@ Nginx 把 HTML 发给你的浏览器 → 你看到网站页面
 这三个就是 WordPress 运行的最低要求，也是后端开发 Web 项目的标准环境。
 
 # 進入庫
+
 先切换到 MySQL 安装的 bin 目录：
 bash
 运行
@@ -59,8 +60,8 @@ bash
 mysql -u root -p
 输入密码，进入命令行。
 
-
 # 执行建库 SQL
+
 1. 执行建库 SQL（在 mysql> 提示符后输入）
 sql
 CREATE DATABASE wp_local CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -77,8 +78,8 @@ sql
 exit;
 回车即可回到 CMD 命令行，接下来就可以配置 Nginx + PHP，启动服务安装 WordPress 了。
 
-
 # PHP 环境配置（关键步骤）
+
 1. 进入 PHP 解压目录（比如 D:\env\php-8.5.5-nts）
 2. 复制配置文件
 把 php.ini-development 复制一份，重命名为 php.ini，用编辑器打开，修改以下配置：
@@ -113,19 +114,20 @@ php-cgi.exe -b 127.0.0.1:9000
 # Nginx 完整配置
 
 Nginx 完整配置文件（直接替换）
+
 1. 找到 Nginx 配置文件
 路径：D:\PhpStudy\nginx-1.28.3\conf\nginx.conf（你的 Nginx 解压目录）
 
 2. 完全替换成下面的配置（注意修改 WordPress 路径）
 nginx
-#user  nobody;
+# user  nobody;
 worker_processes  1;
 
-#error_log  logs/error.log;
-#error_log  logs/error.log  notice;
-#error_log  logs/error.log  info;
+# error_log  logs/error.log;
+# error_log  logs/error.log  notice;
+# error_log  logs/error.log  info;
 
-#pid        logs/nginx.pid;
+# pid        logs/nginx.pid;
 
 events {
     worker_connections  1024;
@@ -177,7 +179,7 @@ http {
     }
 }
 
-3. 关键修改说明
+1. 关键修改说明
 只需要改 root D:\PhpStudy\wordpress; 这一行，换成你自己的 WordPress 文件夹路径
 其他配置完全不用改，直接保存即可
 二、启动 Nginx（CMD 操作）
@@ -185,34 +187,33 @@ http {
 bash
 运行
 taskkill /F /IM nginx.exe
-2. 进入 Nginx 目录，启动服务
+1. 进入 Nginx 目录，启动服务
 bash
 运行
 cd D:\PhpStudy\nginx-1.28.3
 start nginx.exe
 启动后无任何提示就是成功，Nginx 会后台运行，不用保持 CMD 窗口打开
-验证：浏览器访问 http://localhost，如果出现 WordPress 安装页，说明 Nginx 配置生效
+验证：浏览器访问 <http://localhost，如果出现> WordPress 安装页，说明 Nginx 配置生效
 三、WordPress 浏览器安装步骤（5 分钟完成）
 1. 访问安装页
-打开浏览器，输入 http://localhost，自动跳转到 WordPress 安装引导页
+打开浏览器，输入 <http://localhost，自动跳转到> WordPress 安装引导页
 选择语言：简体中文 → 点击「继续」
-2. 数据库配置（关键，填错连不上）
+1. 数据库配置（关键，填错连不上）
 表格
-配置项	填写内容
-数据库名	wp_local（之前 MySQL 创建的数据库）
-用户名	root（MySQL 超级管理员账号）
-密码	你之前设置的 MySQL root 密码
-数据库主机	localhost（默认，不用改）
-表前缀	wp_（默认，不用改）
+配置项 填写内容
+数据库名 wp_local（之前 MySQL 创建的数据库）
+用户名 root（MySQL 超级管理员账号）
+密码 你之前设置的 MySQL root 密码
+数据库主机 localhost（默认，不用改）
+表前缀 wp_（默认，不用改）
 点击「提交」→「运行安装程序」
-3. 网站信息配置
+1. 网站信息配置
 站点标题：你的网站名称（比如「我的 ACG 博客」）
 用户名：WordPress 后台管理员账号（自己设，比如 admin）
 密码：后台管理员密码（自己设，务必记住！）
-你的邮箱：本地开发可随便填，比如 test@test.com
+你的邮箱：本地开发可随便填，比如 <test@test.com>
 勾选「建议搜索引擎不索引本站点」（本地环境用）
 点击「安装 WordPress」→ 完成后点击「登录」，进入后台
-
 
 # 第二次配置wordpress
 
@@ -221,19 +222,21 @@ start nginx.exe
 # 一.安裝準備
 
 1. Nginx（Web 服务器）
-去官网下载：http://nginx.org/en/download.html
+去官网下载：<http://nginx.org/en/download.html>
 下载：nginx/Windows‑xxx.zip解压到：XXXXXX
 2. PHP（运行 WordPress 用）
-下载：https://windows.php.net/download/
+下载：<https://windows.php.net/download/>
 选：Zip → x64 → Non Thread Safe解压到：XXXXXXXX
 3. MySQL（数据库）
-下载：https://dev.mysql.com/downloads/mysql/
+下载：<https://dev.mysql.com/downloads/mysql/>
 选：Windows (x86, 64-bit), ZIP Archive解压到：XXXX
 4.wordpress下載
-https://cn.wordpress.org/latest-zh_CN.zip
+<https://cn.wordpress.org/latest-zh_CN.zip>
 
 # 二.開始配置
+
 ## MySQL
+
 配置环节（重点）：
 端口保持默认 3306，不要修改。
 身份验证方式选择 「Use Legacy Authentication Method」（兼容 WordPress，避免连接报错）。
@@ -253,6 +256,7 @@ CREATE DATABASE wp_local CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ![](/img/bg/MySQL.png)
 
 ## PHP配置
+
 1. 进入 PHP 目录
 2. 复制配置文件
 把 php.ini-development 复制一份，重命名为 php.ini，用编辑器打开，修改以下配置：
@@ -260,7 +264,7 @@ ini
 设置扩展目录（改成你自己的 PHP 路径）
 extension_dir = "D:\env\php-8.5.5-nts\ext"XXXXX extension_dir ="\ext"
 开启 WordPress 必需的扩展（去掉前面的分号 `;`）
-extension=mysqli 
+extension=mysqli
 extension=pdo_mysql
 extension=curl  网络请求
 extension=gd    图片处理
@@ -274,6 +278,7 @@ mysqli / pdo_mysql：MySQL 数据库连接
 ![](/img/bg/PHP.png)
 
 ## Nginx配置
+
 ***注意：要把wordpress解壓到Nginx的html文件夾裡面***
  修改 Nginx 配置
 打开：****\nginx\conf\nginx.conf
@@ -300,8 +305,8 @@ server {
 保存。
 ![](/img/bg/NIGHT.png)
 
-
 ## 三.終端打開
+
 cd *******\php
 php-cgi.exe -b 127.0.0.1:9000
 不能刪除
@@ -310,12 +315,11 @@ cd*******\nginx
 nginx.exe
 不能刪除
 
-打開http://localhost/wp-admin
+打開<http://localhost/wp-admin>
 ![](/img/bg/OVER.png)
 
-
-
 # 一、先给你讲清楚：什么是前后端分离（超简单）
+
 WordPress = 后端 / 数据中心
 存文章
 存图片
@@ -328,31 +332,39 @@ Vue3 = 前端 / 展示页面
 通过 API 去 WordPress 拿数据
 它们的关系：
 Vue ← API ← WordPress
+
 # 二、你本地具备的条件（全部满足）
+
 ✅ 本地 WordPress 能跑（你已经登录后台了）
 ✅ Vue3 项目能跑、能打包
 ✅ 数据库 MySQL 你已经会进了
 ✅ 你只差：Vue 调用 WP API
+
 1. 找到 WordPress 自带的 API 地址
 不用插件、不用配置自带接口例如：
+
 ```
 plaintext
 http://localhost/你的WP地址/wp-json/wp/v2/posts
 打开就是文章列表 JSON
 ```
+
 2. Vue 安装 axios（发送请求）
+
 ```
 plaintext
 npm install axios
 ```
+
 3. Vue 里写 3 行代码请求 WP 数据
 js
-axios.get('http://localhost/.../posts').then(res => {
+axios.get('<http://localhost/.../posts').then(res> => {
   console.log(res.data)
 })catch(error){
   console.log("抓取失敗")
 }
-4. 把数据渲染到 Vue 页面
+2. 把数据渲染到 Vue 页面
+
 ```
 html
 预览
@@ -360,7 +372,6 @@ html
   {{ item.title.rendered }}
 </div>
 ```
-
 
 # 什麼是axios
 
@@ -384,7 +395,9 @@ Axios 之所以成為開發者的首選，主要有以下幾個核心特性：
 客戶端防禦 XSRF： 內建了一些基本的安全性保護。
 
 ----------------------------------------
+
 ## 簡單的git
+
 ```
 import axios from 'axios';
 
@@ -401,17 +414,15 @@ async function getUserData() {
 ```
 
 # 🎯總結
+
 Axios 就是一個更聰明、功能更完整的網路請求工具。對於小型專案，原生 fetch 可能就夠了；但如果你在開發中大型應用，需要統一處理 Token、錯誤提示或複雜的 API 邏輯，Axios 會幫你省下大量的開發時間。
 
 # 推荐插件：All-in-One WP Migration
 
-
 在你现在的 WordPress 后台 → 插件 → 安装 → 搜 All-in-One WP Migration
-
 
 启用后，点导出 → 直接导出成一个 .wpress 单文件
 （这个文件就是整站备份：文章、设置、图片、插件、数据库全在里面）
-
 
 新服务器 / 新电脑搭建的空白 WP：
 

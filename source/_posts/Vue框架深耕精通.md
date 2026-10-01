@@ -11,12 +11,7 @@ categories:
 <details>
 <summary>API</summary>
 
-
-
-
 </details>
-
-
 
 官方文档: [https://cn.vuejs.org/]
 
@@ -326,9 +321,24 @@ set()
 <details>
 <summary>template标签</summary>
 
-自己写的 `词法分析` 
+```txt
+模板字符串
+  → parse（词法+语法分析）
+  → Template AST（节点：Element、Text、Interpolation、Directive...）
+  → transform（转换，处理 v-if/v-for/插值等）
+  → codegen（生成代码）
+  → render 函数
+```
 
-template ----> ast ---->vnode---->diff ----->dom ---->dom树----->cssom----->渲染树
+自己写的 `词法分析`
+
+```txt
+模板 → Template AST → render 函数
+                          ↓ 执行 render
+                       VNode 树（虚拟 DOM）
+                          ↓ patch （diff算法）
+                      真实 DOM
+```
 
 编译时优化 + 最小化 DOM 操作 + 渲染引擎原生机制
 
@@ -342,17 +352,42 @@ patch 阶段 操作源生dom
 
 </details>
 
-
 <details>
 <summary>开屏快</summary>
 
 编译时优化 + 最小化 DOM 操作 + 渲染引擎原生机制
 
-
 </details>
 
-
 <details>
-<summary>diff算法</summary>
+<summary>Vue 3 的 diff：patchKeyedChildren</summary>
+
+```
+更新触发
+  → 组件重新 render → 新 VNode 树
+  → patch(oldVNode, newVNode, container)
+      ├─ 类型/key 不同 → unmount 旧的 + mount 新的
+      └─ 相同 → 进入细分处理
+          ├─ 元素：patchProp 更新属性/事件/class/style  ← 调原生 DOM API
+          └─ 子节点：patchChildren
+              ├─ 文本 vs 数组 等简单情况
+              └─ 数组 vs 数组 → patchKeyedChildren（diff）
+                  ├─ 头尾同步
+                  ├─ 新增 / 删除
+                  └─ 乱序 → key 映射 + LIS → 最少 move
+                      └─ move/insert → hostInsert → 原生 insertBefore
+```
+
+同步头部
+
+同步尾部
+
+只有新增
+
+只有删除
+
+乱序：最长递增子序列（LIS）
+
+
 
 </details>
