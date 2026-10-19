@@ -7,14 +7,12 @@ categories:
     - 后端
 ---
 | 语言生态 | 核心代表 | 生态风格 | 最佳场景 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Node.js | Express, Fastify, NestJS, Hono | 迭代快、碎片化严重、轻量非阻塞、全栈/边缘计算优势明显 | 全栈开发、BFF 层、高并发 I/O、实时应用 |
 | Java | Spring Boot, Quarkus, Netty | 高度标准化、企业级规范、强类型、长生命周期 | 金融级后台、复杂企业级微服务系统、大数据处理 |
 | Python | Django, Flask, FastAPI | 快速交付、语法优雅、人工智能/数据科学无缝集成 | AI/数据分析后端 API、MVP 快速验证、中小型 Web 系统 |
 | Go(Golang) | Gin, Echo, Fiber, Beego | 编译型、极简高效、低内存占用、原生高并发、部署简单 | 高并发网关、微服务、容器云原生、中间件、高性能接口服务 |
 | Rust | Axum, Rocket, Actix-web | 极致性能、内存安全、无GC、高稳定性、超低延迟 | 底层基础设施、高性能核心服务、区块链、高可靠低延迟系统 |
-
-
 
 ```text
 ┌──────────────────────────────────────────┐
@@ -32,7 +30,6 @@ categories:
   • h3 (UnJS)               • LoopBack                      • Remix (React Router)
   • hapi
 ```
-
 
 <details>
 <summary>Express</summary>
@@ -127,6 +124,7 @@ app.use(morgan('dev')); // 打印简短格式的彩图日志
 const compression = require('compression');
 app.use(compression());
 ```
+
 </details>
 
 <details>
@@ -190,11 +188,6 @@ app.get('/api/dashboard', authenticateToken, (req, res) => {
 
 多了个sheame校验 重写了express的路由机制
 
-
-
-
-
-
 </details>
 
 <details>
@@ -202,33 +195,30 @@ app.get('/api/dashboard', authenticateToken, (req, res) => {
 
 Nuxt 是`同构框架`，一份代码，会打包成两套产物，分别跑在两个完全不同环境：服务端（Node）、客户端（浏览器）
 
-
 一份代码2个环境跑 一份nodejs 一份浏览器
 
 import.meta.client 来判断是哪端 防止出现localstorage宿主环境乱用的问题
 
-#  水合（Hydration，注水）
+# 水合（Hydration，注水）
 
 静态HTML发送给浏览器（客户端）加载JS 这一过程是注水
 
-# 服务端没有DOM 
+# 服务端没有DOM
 
-没 2生命周钩子函数  onMounted() onUnmounted() 
+没 2生命周钩子函数  onMounted() onUnmounted()
 
 # 框架基本结构
+
 Nuxt 3 采用的是服务端渲染（SSR）和基于文件系统的路由机制
 
-
 |目录/文件|说明|
-| ---- | ---- |
+|----|----|
 |pages/|存放页面，自动生成路由。|
 |components/|存放公共组件，在任何 .vue 文件中直接写组件名就能用，无需手动 import。|
 |layouts/|存放页面通用布局（如包含统一的导航栏和页脚）。|
 |public/|存放无需打包的静态资源（如图片、图标、robots.txt）。可以直接通过 /filename 访问。|
 |server/|编写后端 API 接口。例如在 server/api/hello.ts 中写接口，前端可以直接用 useFetch('/api/hello') 调用。|
 |nuxt.config.ts|项目全局配置文件（用于引入全局 CSS、配置插件、设置 SEO 标题等）。|
-
-
 
 # 基于文件系统的路由（File-based Routing）
 
@@ -241,16 +231,15 @@ Nuxt 3 采用的是服务端渲染（SSR）和基于文件系统的路由机制
 
 SSR（服务端渲染）水和/防共享/契合服务端渲染(SSR)
 
-`const key = useState('key', () => value)` //全局状态管理 轻量版pinia
+`const key = useState('key', () => value)` //全局状态管理 轻量版pinia 2参数
+
+小型pinia 共享变量？ 跨组件沟通？ 水合框架 防止变成html 客户端和数据库会出现闪屏什么玩意的 nuxts3 专属api？ SSRS
 
 <details>
 
 # 强大的 Node.js 后端服务引擎（Nitro）
 
-
 </details>
-
-
 
 <details>
 <summary>Next.js</summary>
