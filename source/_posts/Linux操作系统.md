@@ -554,15 +554,29 @@ nc -zv 127.0.0.1 3000
 
 执行删除、格式化、防火墙清空、批量替换前，先备份，先 `pwd`，先 `ls` 确认路径。
 
-
-sudo poweroff 
-
-pesswored
-
 pwd
 
-ls 
+ls ls -la  ls -a  ls
 
-cd
+mkdir cd touch mv rm -
 
-rm -rf / www
+-f 递归
+
+cp curl sudo @host cho > >> 600 700 755
+
+which r 4 w 2  x 1
+
+| 管道 ping  ps进程 cd shell 命令 history  clean
+
+cat less  grep
+
+chmod curl  wget
+scp kill
+
+source
+
+> 权限规则：`r=4`，`w=2`，`x=1`
+>
+> - 600：`rw-------`（仅所有者读写，密钥常用）
+> - 700：`rwx------`（仅所有者读写执行）
+> - 755：`rwxr-xr-x`（所有者可读写执行，其他只读执行）
