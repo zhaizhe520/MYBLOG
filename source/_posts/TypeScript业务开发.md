@@ -180,6 +180,8 @@ abstract class user{
 
 `Record<K, V>` 是 TS 内置的泛型工具类型
 
+本质是个"批量生成对象类型"的模板，
+
 # 泛型函数
 
 ```ts
@@ -220,6 +222,11 @@ any 不做类型检查
 unknown 不知道啥类型  收窄才能用
 
 ```ts
+type Record<K extends keyof any, T> = {
+  [P in K]: T
+} 
+
+
 const my: Record<string, unknown>{
   name: "zz"
 }
